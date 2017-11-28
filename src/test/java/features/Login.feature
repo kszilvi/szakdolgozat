@@ -17,14 +17,13 @@ Feature: Login
     And I click on Sign Out
     Then I should see the password field
 
-
   Scenario: Login with invalid username
     Given I navigate to the login page
     When I enter the following for email address
       | username |
       | test |
     And I click on Next button
-    Then I should see the Next button
+    Then I should see the email field
 
   Scenario: Login with valid username and invalid password
     Given I navigate to the login page

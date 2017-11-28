@@ -1,19 +1,17 @@
 package steps;
 
 import base.BaseUtil;
-import pages.LoginPage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import java.util.ArrayList;
 import java.util.List;
 
+public class LoginStep extends BaseUtil {
 
-public class LoginStep extends BaseUtil{
-
-    private BaseUtil base;
+    protected BaseUtil base;
 
     public LoginStep(BaseUtil base){
         this.base = base;
@@ -21,77 +19,73 @@ public class LoginStep extends BaseUtil{
 
     @Given("^I navigate to the login page$")
     public void iNavigateToTheLoginPage() throws Throwable {
-        base.driver.navigate().to("https://calendar.google.com/calendar");
+        base.driver.get("https://calendar.google.com/calendar");
     }
 
     @And("^I click on Next button$")
     public void iClickOnNextButton() throws Throwable {
-        LoginPage page = new LoginPage(base.driver);
-        page.clickNext();
+        base.wait.until(ExpectedConditions.elementToBeClickable(base.login.nextButton));
+        base.login.clickNext();
     }
 
     @Then("^I should see the password field$")
-    public void iShouldSeeThePasswordField() throws Throwable {
-        LoginPage page = new LoginPage(base.driver);
-        Thread.sleep(5000);
-        page.passwordFieldIsDispayed();
+    public void iShouldSeeThePasswordField() {
+        base.wait.until(ExpectedConditions.elementToBeClickable(base.login.passwordField));
+        base.login.passwordFieldIsDispayed();
     }
 
     @And("^I enter the following for email address$")
-    public void iEnterTheFollowingForEmailAddress(DataTable table) throws Throwable {
-
-        List<User> users = new ArrayList<User>();
+    public void iEnterTheFollowingForEmailAddress(DataTable table) {
+        List<User> users;
         users = table.asList(User.class);
 
-        LoginPage page = new LoginPage(base.driver);
-
         for (User user:users) {
-            page.enterEmailAddres(user.username);
+            base.login.enterEmailAddres(user.username);
         }
     }
 
     @When("^I enter the following for password$")
-    public void iEnterTheFollowingForPassword(DataTable table) throws Throwable {
-        List<User> passwords = new ArrayList<User>();
+    public void iEnterTheFollowingForPassword(DataTable table) {
+        List<User> passwords;
         passwords = table.asList(User.class);
 
-        LoginPage page = new LoginPage(base.driver);
-
         for (User password:passwords) {
-            page.enterPassword(password.password);
+            base.login.enterPassword(password.password);
         }
     }
 
-    @Then("^I should see the Calendar button$")
-    public void iShouldSeeTheNaptarButton() throws Throwable {
-        Thread.sleep(5000);
-        LoginPage page = new LoginPage(base.driver);
-        page.calendarButtonIsDisplayed();
-
-    }
-
     @Then("^I should see the Next button$")
-    public void iShouldSeeTheNextButton() throws Throwable {
-        LoginPage page = new LoginPage(base.driver);
-        page.nextButtonIsDisplayed();
+    public void iShouldSeeTheNextButton() {
+        base.login.nextButtonIsDisplayed();
     }
 
     @When("^I click on my picture$")
-    public void iClickOnMyPicture() throws Throwable {
-        LoginPage page = new LoginPage(base.driver);
-        page.clickOnMyPicture();
+    public void iClickOnMyPicture() {
+        base.login.clickOnMyPicture();
     }
 
     @And("^I click on Sign Out$")
-    public void iClickOnSignOut() throws Throwable {
-        LoginPage page = new LoginPage(base.driver);
-        page.clickOnSignOut();
+    public void iClickOnSignOut() {
+        base.login.clickOnSignOut();
     }
 
     @Then("^I should see the email field$")
-    public void iShouldSeeTheEmailField() throws Throwable {
-        LoginPage page = new LoginPage(base.driver);
-        page.emailFieldIsDisplayed();
+    public void iShouldSeeTheEmailField() {
+        base.login.emailFieldIsDisplayed();
+    }
+
+    @Given("^Calendar page is opened$")
+    public void calendarPageIsOpened(DataTable table) {
+        List<User> accounts;
+        accounts = table.asList(User.class);
+
+        base.driver.navigate().to("https://calendar.google.com/calendar");
+
+        for (User user : accounts) {
+            base.login.enterEmailAddres(user.username).clickNext();
+            base.wait.until(ExpectedConditions.elementToBeClickable(base.login.passwordField));
+            base.login.enterPassword(user.password).clickNext();
+        }
     }
 
     public class User{
@@ -102,6 +96,5 @@ public class LoginStep extends BaseUtil{
             username = userName;
             password = passWord;
         }
-
     }
 }

@@ -11,7 +11,7 @@ public class EditEventPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//INPUT[@placeholder='Enter a location']")
+    @FindBy(css = "INPUT[placeholder='Enter a location']")
     public WebElement whereInputField;
 
     @FindBy (className = "ep-dp-input")

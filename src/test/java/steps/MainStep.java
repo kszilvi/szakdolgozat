@@ -20,7 +20,7 @@ public class MainStep extends BaseUtil{
     }
 
     @When("^I click on Create button$")
-    public void iClickOnCreateButton() throws Throwable {
+    public void iClickOnCreateButton() {
         base.main.clickOnCtreateButton();
     }
 }

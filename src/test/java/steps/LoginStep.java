@@ -18,12 +18,12 @@ public class LoginStep extends BaseUtil {
     }
 
     @Given("^I navigate to the login page$")
-    public void iNavigateToTheLoginPage() throws Throwable {
+    public void iNavigateToTheLoginPage() {
         base.driver.get("https://calendar.google.com/calendar");
     }
 
     @And("^I click on Next button$")
-    public void iClickOnNextButton() throws Throwable {
+    public void iClickOnNextButton() {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.login.nextButton));
         base.login.clickNext();
     }
@@ -84,7 +84,9 @@ public class LoginStep extends BaseUtil {
         for (User user : accounts) {
             base.login.enterEmailAddres(user.username).clickNext();
             base.wait.until(ExpectedConditions.elementToBeClickable(base.login.passwordField));
-            base.login.enterPassword(user.password).clickNext();
+            base.login.enterPassword(user.password);
+            base.wait.until(ExpectedConditions.elementToBeClickable(base.login.nextButton));
+            base.login.clickNext();
         }
     }
 

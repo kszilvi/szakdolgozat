@@ -16,7 +16,7 @@ public class CreateStep extends BaseUtil{
     }
 
     @And("^I create an all day event$")
-    public void iCreateAnAllDayEventToday() throws InterruptedException {
+    public void iCreateAnAllDayEvent() throws InterruptedException {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.create.nameOfTheEventTextBox));
         base.create.addNameToEvent(base.prop.getProperty("nameOfTheAllDayEvent")).checkAllDayCheckBox();
         base.create.addStartDate(base.prop.getProperty("dateOfTheAllDayEvent")).addUntilDate(base.prop.getProperty("dateOfTheAllDayEvent"));
@@ -24,15 +24,23 @@ public class CreateStep extends BaseUtil{
     }
 
     @Then("^All day event should be displayed in the calendar$")
-    public void allDayTodayEventShouldBeDisplayedInTheCalendar() throws Throwable {
-        boolean running = true;
+    public void allDayEventShouldBeDisplayedInTheCalendar() throws ParseException, InterruptedException {
+
+        do{
+            base.main.clickNextButtonOnWeekView();
+        }
+        while(!base.main.startDateIsOnCurrentPage(base.prop.getProperty("dateOfTheAllDayEvent")));
+
+        /*boolean running = true;
         while(running) {
             base.main.clickNextButtonOnWeekView();
             if(base.main.startDateIsOnCurrentPage(base.prop.getProperty("dateOfTheAllDayEvent"))) {
                 running = false;
             }
-        }
+        }*/
+
         base.main.isAllDayEventInCalendar(base.prop.getProperty("nameOfTheAllDayEvent"));
+        Thread.sleep(5000);
         base.main.goToParticularEventPage(base.prop.getProperty("nameOfTheAllDayEvent"));
 
         if(base.edit.assertAndVerifyElement(base.preview.date)) {
@@ -43,7 +51,7 @@ public class CreateStep extends BaseUtil{
     }
 
     @And("^I create a short time event$")
-    public void iCreateAShortTimeEvent() throws Throwable {
+    public void iCreateAShortTimeEvent() {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.create.nameOfTheEventTextBox));
         base.create.addNameToEvent(base.prop.getProperty("nameOfTheShortTimeEvent"));
         base.create.addStartDate(base.prop.getProperty("startDateOfTheShortTimeEvent")).addFromTime(base.prop.getProperty("fromTimeOfTheShortTimeEvent"));
@@ -53,13 +61,12 @@ public class CreateStep extends BaseUtil{
 
     @Then("^The short time event should be displayed in the calendar$")
     public void theShortTimeEventShouldBeDisplayedInTheCalendar() throws Throwable {
-        boolean running = true;
-        while(running) {
+
+        do{
             base.main.clickNextButtonOnWeekView();
-            if(base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheShortTimeEvent"))) {
-                running = false;
-            }
         }
+        while(!base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheShortTimeEvent")));
+
         base.main.isShortTimeEventInCalendar(base.prop.getProperty("nameOfTheShortTimeEvent"));
         base.main.goToParticularEventPage(base.prop.getProperty("nameOfTheShortTimeEvent"));
         if(base.edit.assertAndVerifyElement(base.preview.date)) {
@@ -74,7 +81,7 @@ public class CreateStep extends BaseUtil{
     public void iCreateANotAllDayEvent() throws InterruptedException {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.create.nameOfTheEventTextBox));
         base.create.addNameToEvent(base.prop.getProperty("nameOfTheMultipleDayEvent"));
-        base.wait.until(ExpectedConditions.elementToBeClickable(base.create.startDate));
+        //base.wait.until(ExpectedConditions.elementToBeClickable(base.create.startDate));
         base.create.addStartDate(base.prop.getProperty("startDateOfTheMultipleDayEvent")).addFromTime(base.prop.getProperty("fromTimeOfTheMultipleDayEvent"));
         base.create.addUntilTime(base.prop.getProperty("untilTimeOfTheMultipleDayEvent")).addUntilDate(base.prop.getProperty("untilDateOfTheMultipleDayEvent"));
         base.create.saveEvent();
@@ -82,13 +89,12 @@ public class CreateStep extends BaseUtil{
 
     @Then("^The multiple day event should be displayed in the calendar$")
     public void theEventShouldBeDisplayedInTheCalendar() throws ParseException, InterruptedException {
-        boolean running = true;
-        while(running) {
+
+        do{
             base.main.clickNextButtonOnWeekView();
-            if(base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheMultipleDayEvent"))) {
-                running = false;
-            }
         }
+        while(!base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheMultipleDayEvent")));
+
         base.main.isAllDayEventInCalendar("(" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent") + ") " + base.prop.getProperty("nameOfTheMultipleDayEvent"));
         base.main.goToParticularEventPage("(" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent") + ") " + base.prop.getProperty("nameOfTheMultipleDayEvent"));
         if(base.edit.assertAndVerifyElement(base.preview.date)) {

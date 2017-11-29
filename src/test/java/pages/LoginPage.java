@@ -21,7 +21,7 @@ public class LoginPage {
     @FindBy(name = "password")
     public WebElement passwordField;
 
-    @FindBy(xpath = "//SPAN[@class='gb_bb gbii']")
+    @FindBy(xpath = "//SPAN[@class='gb_ab gbii']")
     public WebElement picturOfMe;
 
     @FindBy(xpath = "//A[@id='gb_71']")

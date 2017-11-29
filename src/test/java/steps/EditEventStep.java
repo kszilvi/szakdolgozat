@@ -18,13 +18,12 @@ public class EditEventStep extends BaseUtil{
 
     @When("^I select a multiple day event$")
     public void iSelectAMultipleDayEvent() throws ParseException, InterruptedException {
-        boolean running = true;
-        while(running) {
+
+        do{
             base.main.clickNextButtonOnWeekView();
-            if(base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheMultipleDayEvent"))) {
-                running = false;
-            }
         }
+        while(!base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheMultipleDayEvent")));
+
         base.main.goToParticularEventPage("(" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent") + ") " + base.prop.getProperty("nameOfTheMultipleDayEvent"));
         if(base.edit.assertAndVerifyElement(base.preview.date)) {
             base.preview.clickOnEditButton();

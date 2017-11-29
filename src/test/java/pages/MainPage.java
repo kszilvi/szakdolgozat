@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,44 +61,44 @@ public class MainPage {
         String[] dateFromCalendar = currentDate.getText().split(" ");
         String[] startDate = dt.format(date3).split(" ");
 
-        int days2 = Integer.parseInt(startDate[0]);
-        String month2 = startDate[1];
-        String year2 = startDate[2];
+        int startDayFromPropFile = Integer.parseInt(startDate[0]);
+        String fromMonthFromPropFile = startDate[1];
+        String startYearFromPropFile = startDate[2];
 
-        int fromDay, untilDay;
-        String month, year, monthTwo, yearTwo;
+        int fromDayOnWeekView, untilDayOnWeekView;
+        String fromMonthOnWeekView, fromYearOnWeekView, untilMonthOnWeekView, untilYearOnWeekView;
 
         boolean isOnPage = false;
 
-        fromDay = Integer.parseInt(dateFromCalendar[0]);
+        fromDayOnWeekView = Integer.parseInt(dateFromCalendar[0]);
 
         if(dateFromCalendar.length == 5 ) {
-            untilDay = Integer.parseInt(dateFromCalendar[2]);
-            month = dateFromCalendar[3];
-            year = dateFromCalendar[4];
+            untilDayOnWeekView = Integer.parseInt(dateFromCalendar[2]);
+            fromMonthOnWeekView = dateFromCalendar[3];
+            fromYearOnWeekView = dateFromCalendar[4];
 
-            if( ((days2 >= fromDay && days2 <= untilDay) && (month.equals(month2)) && (year.equals(year2)) ) ){
+            if( ((startDayFromPropFile >= fromDayOnWeekView && startDayFromPropFile <= untilDayOnWeekView) && (fromMonthOnWeekView.equals(fromMonthFromPropFile)) && (fromYearOnWeekView.equals(startYearFromPropFile)) ) ){
                 isOnPage = true;
             }
         }
         else if (dateFromCalendar.length == 6 ){
-            untilDay = Integer.parseInt(dateFromCalendar[3]);
-            month = dateFromCalendar[1];
-            monthTwo = dateFromCalendar[4];
-            year = dateFromCalendar[5];
+            untilDayOnWeekView = Integer.parseInt(dateFromCalendar[3]);
+            fromMonthOnWeekView = dateFromCalendar[1];
+            untilMonthOnWeekView = dateFromCalendar[4];
+            fromYearOnWeekView = dateFromCalendar[5];
 
-            if( (days2 >= fromDay && days2 <= untilDay) && (month.equals(month2) || monthTwo.equals(month) && year.equals(year2)) ) {
+            if( (startDayFromPropFile >= fromDayOnWeekView && startDayFromPropFile <= untilDayOnWeekView) && (fromMonthOnWeekView.equals(fromMonthFromPropFile) || untilMonthOnWeekView.equals(fromMonthOnWeekView) && fromYearOnWeekView.equals(startYearFromPropFile)) ) {
                 isOnPage = true;
             }
         }
         else if(dateFromCalendar.length == 7){
-            month = dateFromCalendar[1];
-            monthTwo = dateFromCalendar[5];
-            untilDay = Integer.parseInt(dateFromCalendar[4]);
-            year = dateFromCalendar[2];
-            yearTwo = dateFromCalendar[6];
+            fromMonthOnWeekView = dateFromCalendar[1];
+            untilMonthOnWeekView = dateFromCalendar[5];
+            untilDayOnWeekView = Integer.parseInt(dateFromCalendar[4]);
+            fromYearOnWeekView = dateFromCalendar[2];
+            untilYearOnWeekView = dateFromCalendar[6];
 
-            if((days2 >= fromDay || days2 <= untilDay) && ((month.equals(month2) || monthTwo.equals(month2)) && ((year.equals(year2) ||  yearTwo.equals(year2))))){
+            if((startDayFromPropFile >= fromDayOnWeekView || startDayFromPropFile <= untilDayOnWeekView) && ((fromMonthOnWeekView.equals(fromMonthFromPropFile) || untilMonthOnWeekView.equals(fromMonthFromPropFile)) && ((fromYearOnWeekView.equals(startYearFromPropFile) ||  untilYearOnWeekView.equals(startYearFromPropFile))))){
                 isOnPage = true;
             }
         }
@@ -109,7 +108,6 @@ public class MainPage {
     public MainPage isAllDayEventInCalendar(String title) {
         List<WebElement> alldayEventsList = eventsContainer.findElements(By.className("rb-ni"));
         boolean isPresent = false;
-
         for(WebElement e: alldayEventsList) {
             if(e.getText().equals(title)) {
                 isPresent = true;

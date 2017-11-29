@@ -12,33 +12,29 @@ public class CreateEventPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//INPUT[@title='Event title']")
+    //@FindBy(xpath = "//INPUT[@title='Event title']")
+    //public WebElement nameOfTheEventTextBox;
+
+    @FindBy(css = "input[title='Event title']")
     public WebElement nameOfTheEventTextBox;
 
     @FindBy(className = "checkbox")
     public WebElement allDayCheckBox;
 
-    @FindBy (className = "ui-sch")
-    public WebElement locationTextBox;
-
-    @FindBy (xpath = "//TEXTAREA[@id=':29']")
-    public WebElement descriptionTextBox;
-
     @FindBy (xpath = "//DIV[@class='goog-imageless-button-content'][text()='Save']")
     public WebElement saveButton;
 
-    @FindBy(xpath = "//INPUT[@title='From date']")
+    @FindBy(css = "input[title='From date']")
     public WebElement startDate;
 
-    @FindBy(xpath = "//INPUT[@title='Until date']")
+    @FindBy(css = "input[title='Until date']")
     public WebElement untilDate;
 
-    @FindBy(xpath = "//INPUT[@title='From time']")
+    @FindBy(css = "input[title='From time']")
     public WebElement fromTime;
 
-    @FindBy(xpath = "//INPUT[@title='Until time']")
+    @FindBy(css = "input[title='Until time']")
     public WebElement untilTime;
-
 
     public CreateEventPage addNameToEvent(String name){
         nameOfTheEventTextBox.sendKeys(name);
@@ -80,21 +76,13 @@ public class CreateEventPage {
     }
 
     public CreateEventPage verifyEventDates(String fromDate, String endOfDate) throws InterruptedException {
-        boolean equal = false;
-
-        if(fromDate.equals(startDate.getAttribute("value")) && (untilDate.getAttribute("value").equals(endOfDate))) {
-            equal = true;
-        }
+        boolean equal = fromDate.equals(startDate.getAttribute("value")) && (untilDate.getAttribute("value").equals(endOfDate));
         Assert.assertTrue(equal, " dates are different");
         return this;
     }
 
     public CreateEventPage verifyEventTimes(String startTime, String endOfTime) throws InterruptedException {
-        boolean equal = false;
-
-        if(startTime.equals(fromTime.getAttribute("value")) && (untilTime.getAttribute("value").equals(endOfTime))) {
-            equal = true;
-        }
+        boolean equal = startTime.equals(fromTime.getAttribute("value")) && (untilTime.getAttribute("value").equals(endOfTime));
         Assert.assertTrue(equal, " dates are different");
         return this;
     }

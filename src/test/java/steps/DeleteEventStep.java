@@ -17,13 +17,12 @@ public class DeleteEventStep extends BaseUtil{
 
     @When("^I delete an all day event$")
     public void iDeleteAnAllDayEventOnToday() throws InterruptedException, ParseException {
-        boolean running = true;
-        while(running) {
+
+        do{
             base.main.clickNextButtonOnWeekView();
-            if(base.main.startDateIsOnCurrentPage(base.prop.getProperty("dateOfTheAllDayEvent"))) {
-                running = false;
-            }
         }
+        while(!base.main.startDateIsOnCurrentPage(base.prop.getProperty("dateOfTheAllDayEvent")));
+
         base.main.goToParticularEventPage(base.prop.getProperty("nameOfTheAllDayEvent"));
         if(base.edit.assertAndVerifyElement(base.main.dateInEventPreview)) {
             base.delete.deleteButton.click();

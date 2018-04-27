@@ -18,30 +18,53 @@ public class EditEventStep extends BaseUtil{
 
     @When("^I select a multiple day event$")
     public void iSelectAMultipleDayEvent() throws ParseException, InterruptedException {
-
         do{
             base.main.clickNextButtonOnWeekView();
         }
         while(!base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheMultipleDayEvent")));
 
-        base.main.goToParticularEventPage("(" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent") + ") " + base.prop.getProperty("nameOfTheMultipleDayEvent"));
-        if(base.edit.assertAndVerifyElement(base.preview.date)) {
-            base.preview.clickOnEditButton();
-        }
+        base.main.goToParticularEventPage(base.prop.getProperty("nameOfTheMultipleDayEvent") + "\n" + ", " + "\n" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent"));
+        base.preview.clickOnEditButton();
     }
 
     @And("^I add a location to the selected event$")
-    public void iAddALocationToTheSelectedEvent() throws InterruptedException {
-        if(base.edit.assertAndVerifyElement(base.edit.whereLink)) {
-            base.edit.clickOnWhereLink();
-        }
+    public void iAddALocationToTheSelectedEvent() {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.edit.whereInputField));
         base.edit.addLocation(base.prop.getProperty("locationOfTheMultipleDayEvent"));
+        base.wait.until(ExpectedConditions.elementToBeClickable(base.create.saveButton));
         base.create.saveEvent();
     }
 
     @Then("^The location should be displayed$")
-    public void theLocationShouldBeDisplayed() throws InterruptedException {
-        base.main.goToParticularEventPage("(" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent") + ") " + base.prop.getProperty("nameOfTheMultipleDayEvent") + " - " + base.prop.getProperty("locationOfTheMultipleDayEvent"));
+    public void theLocationShouldBeDisplayed() {
+        base.main.goToParticularEventPage(base.prop.getProperty("nameOfTheMultipleDayEvent") + "\n" + ", " + "\n" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent"));
+        base.preview.clickOnEditButton();
+        base.edit.verifyLocation(base.prop.getProperty("locationOfTheMultipleDayEvent"));
+    }
+
+    @When("^I select an event$")
+    public void iSelectAnEvent() throws Throwable {
+        do{
+            base.main.clickNextButtonOnWeekView();
+        }
+        while(!base.main.startDateIsOnCurrentPage(base.prop.getProperty("startDateOfTheMultipleDayEvent")));
+
+        base.main.goToParticularEventPage(base.prop.getProperty("nameOfTheMultipleDayEvent") + "\n" + ", " + "\n" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent"));
+        base.preview.clickOnEditButton();
+    }
+
+    @And("^I add a description to the selected event$")
+    public void iAddADescriptionToTheSelectedEvent() {
+        base.wait.until(ExpectedConditions.elementToBeClickable(base.edit.descriptionInputField));
+        base.edit.addDescription(base.prop.getProperty("description"));
+        base.wait.until(ExpectedConditions.elementToBeClickable(base.create.saveButton));
+        base.create.saveEvent();
+    }
+
+    @Then("^The description should be displayed$")
+    public void theDescriptionShouldBeDisplayed() throws Throwable {
+        base.main.goToParticularEventPage(base.prop.getProperty("nameOfTheMultipleDayEvent") + "\n" + ", " + "\n" + base.prop.getProperty("fromTimeOfTheMultipleDayEvent"));
+        base.preview.clickOnEditButton();
+        base.edit.verifyDescriptions(base.prop.getProperty("description"));
     }
 }

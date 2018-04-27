@@ -14,7 +14,7 @@ public class EventPreviewPage {
     @FindBy (className = "neb-date")
     public WebElement date;
 
-    @FindBy (xpath = "//DIV[@role='button'][text()='Edit event']")
+    @FindBy(css = "div[aria-label='Edit event']")
     public WebElement editButton;
 
     public void clickOnEditButton() {

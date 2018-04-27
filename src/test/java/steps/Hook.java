@@ -5,9 +5,15 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
 
@@ -26,7 +32,12 @@ public class Hook extends BaseUtil {
     @Before
     public void initializeTest() throws IOException {
         ChromeDriverManager.getInstance().setup();
-        base.driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        //this option for MACOS
+        //options.addArguments("user-data-dir=/Users/kovacsszilvia/Library/Application Support/Google/Chrome/szilvi");
+        //this option for Windows
+        options.addArguments("user-data-dir=C:\\Users\\Szilvia_Kovacs\\AppData\\Local\\Google\\Chrome\\User Data\\szilvi_test");
+        base.driver = new ChromeDriver(options);
         base.driver.manage().window().maximize();
         base.login = new LoginPage(base.driver);
         base.main = new MainPage(base.driver);
@@ -34,10 +45,8 @@ public class Hook extends BaseUtil {
         base.create = new CreateEventPage(base.driver);
         base.edit = new EditEventPage(base.driver);
         base.preview = new EventPreviewPage(base.driver);
+        base.searchResult = new SearchResultPage(base.driver);
         base.wait = new WebDriverWait(base.driver, 3000);
-        base.prop = new Properties();
-        base.input = BaseUtil.class.getClassLoader().getResourceAsStream("input.properties");
-        base.prop.load(base.input);
     }
 
     @After

@@ -13,7 +13,7 @@ public class LoginPage {
     }
 
     @FindBy(id = "identifierId")
-    private WebElement userNameField;
+    public WebElement userNameField;
 
     @FindBy(className = "CwaK9")
     public WebElement nextButton;
@@ -26,6 +26,10 @@ public class LoginPage {
 
     @FindBy(xpath = "//A[@id='gb_71']")
     public WebElement signOut;
+
+    @FindBy(id = "recoveryIdentifierId")
+    public WebElement verificationField;
+
 
     public LoginPage enterEmailAddres(String username) {
         userNameField.sendKeys(username);

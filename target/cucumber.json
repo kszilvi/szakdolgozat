@@ -1,0 +1,89 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 5,
+        "name": "Create an all day event",
+        "description": "",
+        "id": "create-events;create-an-all-day-event",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 6,
+            "name": "Calendar page is opened",
+            "match": {},
+            "rows": [
+              {
+                "cells": [
+                  "username",
+                  "password"
+                ],
+                "line": 7
+              },
+              {
+                "cells": [
+                  "calendartesting12358",
+                  "_ZD8:t9Q"
+                ],
+                "line": 8
+              }
+            ],
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 9,
+            "name": "I should see the Calendar button",
+            "match": {},
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 10,
+            "name": "I click on Create button",
+            "match": {},
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 11,
+            "name": "I create an all day event",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 12,
+            "name": "All day event should be displayed in the calendar",
+            "match": {},
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "line": 4,
+            "name": "@current"
+          }
+        ]
+      }
+    ],
+    "name": "Create events",
+    "description": "This feature deals with the create events functionality of the application",
+    "id": "create-events",
+    "keyword": "Feature",
+    "uri": "CreateEvent.feature"
+  }
+]

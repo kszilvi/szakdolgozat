@@ -7,11 +7,13 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
 import java.util.List;
 
 public class LoginStep extends BaseUtil {
 
     protected BaseUtil base;
+    //static Logger log = Logger.getLogger(LoginStep.class);
 
     public LoginStep(BaseUtil base){
         this.base = base;
@@ -74,20 +76,9 @@ public class LoginStep extends BaseUtil {
         base.login.emailFieldIsDisplayed();
     }
 
-    @Given("^Calendar page is opened$")
-    public void calendarPageIsOpened(DataTable table) {
-        List<User> accounts;
-        accounts = table.asList(User.class);
-
+    @Given("^I am logged in$")
+    public void userLoggedIn() {
         base.driver.navigate().to("https://calendar.google.com/calendar");
-
-        for (User user : accounts) {
-            base.login.enterEmailAddres(user.username).clickNext();
-            base.wait.until(ExpectedConditions.elementToBeClickable(base.login.passwordField));
-            base.login.enterPassword(user.password);
-            base.wait.until(ExpectedConditions.elementToBeClickable(base.login.nextButton));
-            base.login.clickNext();
-        }
     }
 
     public class User{

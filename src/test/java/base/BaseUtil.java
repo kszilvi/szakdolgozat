@@ -15,6 +15,7 @@ public class BaseUtil {
     public CreateEventPage create;
     public EventPreviewPage preview;
     public EditEventPage edit;
+    public SearchResultPage searchResult;
     public WebDriverWait wait;
     public Properties prop;
     public InputStream input;

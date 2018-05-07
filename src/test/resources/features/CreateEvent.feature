@@ -32,6 +32,7 @@ Feature: Create events
       | name                        | from date   | from time | unit from | until date  | until time | unit until | message     |
       | Multiple day long event 140 | 10 Jun 2018 | 1:30      | pm        | 13 Jun 2018 | 6:30       | pm         | Event saved |
 
+
   Scenario Outline: Trying to create incorrect events
     When I click on Create button
     Then the creating event page should be displayed

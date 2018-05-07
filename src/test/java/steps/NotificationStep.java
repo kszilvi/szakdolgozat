@@ -23,10 +23,6 @@ public class NotificationStep extends BaseUtil {
         base.create.selectNotificationType(notificationType);
     }
 
-    @And("^notification icon should not be displayed on preview page$")
-    public void notificationIconShouldNotBeDisplayedOnPreviewPage() {
-        //Assert.assertFalse(base.preview.notification.isDisplayed(), "notifaction already appears on preview page");
-    }
 
     @And("^I add \"([^\"]*)\" number to notification$")
     public void iAddNumberToNotification(String num) throws Throwable {

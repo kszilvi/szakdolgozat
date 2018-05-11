@@ -12,6 +12,14 @@ public class MainPage {
     public WebElement calendarButton;
     @FindBy(className = "Gw6Zhc")
     public WebElement createButton;
+    @FindBy(className = "d6McF")
+    public WebElement searchButton;
+    @FindBy(css = "button[aria-label='Search']")
+    public WebElement searchButton2;
+    @FindBy(css = "input[aria-label='Search']")
+    public WebElement searchField;
+    @FindBy(className = "aGJE1b")
+    public WebElement message;
     @FindBy(id = "YPCqFe")
     public WebElement eventsContainer;
     @FindBy(css = "div[aria-label='Next week']")
@@ -24,55 +32,40 @@ public class MainPage {
     public WebElement all;
     @FindBy(className = "KaL5Wc")
     public WebElement monthAndYearFromCalendar;
-    @FindBy(className = "d6McF")
-    public WebElement searchButton;
-    @FindBy(css = "button[aria-label='Search']")
-    public WebElement searchButton2;
-    @FindBy(css = "input[aria-label='Search']")
-    public WebElement searchField;
-    @FindBy(className = "aGJE1b")
-    public WebElement message;
 
     public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
-    public MainPage calendarButtonIsDisplayed() {
-        Assert.assertEquals(calendarButton.isDisplayed(), true);
-        return this;
+    public void calendarButtonIsDisplayed() {
+        Assert.assertTrue(calendarButton.isDisplayed());
     }
 
     private String getMessage() {
         return message.getText();
     }
 
-    public MainPage createEventIsDisplayed() {
-        Assert.assertEquals(createButton.isDisplayed(), true);
-        return this;
+    public void createEventIsDisplayed() {
+        Assert.assertTrue(createButton.isDisplayed());
     }
 
-    public MainPage clickOnCtreateButton() {
+    public void clickOnCtreateButton() {
         createButton.click();
-        return this;
     }
 
-    public MainPage clickOnSearchButton() {
+    public void clickOnSearchButton() {
         searchButton.click();
-        return this;
     }
 
-    public MainPage clickOnSearchButton2() {
+    public void clickOnSearchButton2() {
         searchButton2.click();
-        return this;
     }
 
-    public MainPage typeToSearchField(String name) {
+    public void typeToSearchField(String name) {
         searchField.sendKeys(name);
-        return this;
     }
 
-    public MainPage isMessageMatch(String message) {
+    public void isMessageMatch(String message) {
         Assert.assertEquals(getMessage(), message);
-        return this;
     }
 }

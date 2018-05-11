@@ -11,6 +11,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 public class Helper {
+
+    private String latestTimestamp;
+
+    public String getCurrentTimestampForDate2() {
+        return new SimpleDateFormat("dd MMM yyyy hh:mm:ss").format(System.currentTimeMillis());
+    }
+
+    public String getLatestTimestamp(){
+        return latestTimestamp;
+    }
+
     public String getCurrentDay() {
         return new SimpleDateFormat("d MMM yyyy").format(System.currentTimeMillis());
     }
@@ -43,7 +54,7 @@ public class Helper {
         return store;
     }
 
-    private boolean searchMessageFromTitleWAndSenderWithRetry(Folder folder, String title, int retryCount, String sender) throws MessagingException, InterruptedException, IOException {
+    private boolean searchMessageFromTitleWAndSenderWithRetry(Folder folder, String title, int retryCount, String sender) throws MessagingException, InterruptedException {
         int retryCounter = 0;
         folder.open(Folder.READ_WRITE);
         Message[] messages = folder.getMessages();
@@ -54,6 +65,7 @@ public class Helper {
             messages = folder.getMessages();
             retryCounter++;
         }
+
         for (Message message : messages) {
             if (title.equals(message.getSubject()) && sender.equals(message.getFrom()[0].toString())) {
                 isMatch = true;
@@ -63,7 +75,7 @@ public class Helper {
         return isMatch;
     }
 
-    public void isEmailMatch(Properties prop, String name, String emailAddress) throws MessagingException, IOException, InterruptedException {
+    public void isEmailMatch(Properties prop, String name, String emailAddress) throws MessagingException, InterruptedException {
         Assert.assertTrue(searchMessageFromTitleWAndSenderWithRetry(connect(prop).getFolder("inbox"),
                 subject(name, emailAddress), 5, senderAddress()));
     }
@@ -72,13 +84,12 @@ public class Helper {
         return new SimpleDateFormat("z").format(System.currentTimeMillis());
     }
 
-
     private String senderAddress() {
         return "Google Calendar <calendar-notification@google.com>";
     }
 
-    private String subject(String eventName, String emailAddress) {
-        return "Notification: " + eventName + " @ " + convertLocalDateTimeToStringWithYears(getTimeStampPlusXMinutes(10)) + " " +
+    public String subject(String eventName, String emailAddress) {
+        return "Notification: " + eventName + " - " + latestTimestamp + " @ " + convertLocalDateTimeToStringWithYears(getTimeStampPlusXMinutes(10)) + " " +
                 convertLocalDateTimeToStringOnlyHours(getTimeStampPlusXMinutes(10)) +
                 " (" + getTimeZone() + ")" + " (" + emailAddress + ")";
     }

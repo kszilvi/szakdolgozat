@@ -14,11 +14,6 @@ public class EditEventStep extends BaseUtil{
         this.base = base;
     }
 
-    @When("^I click on the name of the \"([^\"]*)\" event$")
-    public void iClickOnTheNameOfTheEvent(String eventName){
-        base.searchResult.clickOnTheNameOfTheEvent(eventName);
-    }
-
     @Then("^event preview should be displayed$")
     public void eventPreviewShouldBeDisplayed(){
         base.wait.until(ExpectedConditions.elementToBeClickable(base.preview.editButton));
@@ -31,12 +26,10 @@ public class EditEventStep extends BaseUtil{
     }
 
     @When("^I type \"([^\"]*)\" location to the selected event$")
-    public void iAddLocationToTheSelectedEvent(String location) {
+    public void iAddLocationToTheSelectedEvent(String location) throws InterruptedException {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.create.whereInputField));
-        if(!location.equals("")){
-            base.create.whereInputField.clear();
-            base.create.addLocation(location);
-        }
+        base.create.addLocation(location);
+        Thread.sleep(5000);
     }
 
     @And("^\"([^\"]*)\" location should be displayed in the preview pane$")
@@ -45,19 +38,13 @@ public class EditEventStep extends BaseUtil{
     }
 
     @And("^I type \"([^\"]*)\" description to the selected event$")
-    public void iTypeDescriptionToTheSelectedEvent(String description) {
-        base.wait.until(ExpectedConditions.elementToBeClickable(base.create.descriptionField));
+    public void iTypeDescriptionToTheSelectedEvent(String description) throws InterruptedException {
+        //base.wait.until(ExpectedConditions.elementToBeClickable(base.create.descriptionField));
         base.create.addDescription(description);
     }
 
     @And("^\"([^\"]*)\" description should be displayed in the preview pane$")
     public void descriptionShouldBeDisplayedInThePreviewPane(String description) throws Throwable {
         base.preview.descriptionIsDisplayedInPreviewPage(description);
-    }
-
-    @And("^searched \"([^\"]*)\" event should appear on search result page$")
-    public void searchedEventShouldAppearOnSearchResultPage(String name) {
-        base.wait.until(ExpectedConditions.elementToBeClickable(base.searchResult.eventContainer));
-        base.searchResult.searchedEventIsDisplayedinSearchResultList(name);
     }
 }

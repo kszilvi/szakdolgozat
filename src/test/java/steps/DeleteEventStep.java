@@ -19,10 +19,5 @@ public class DeleteEventStep extends BaseUtil {
         base.preview.clickOnDeleteButton();
     }
 
-    @Then("^\"([^\"]*)\" event should not appear on search result page$")
-    public void eventShouldNotAppearOnSearchResultPage(String name) {
-        base.searchResult.eventIsDisplayedOnSearchResultList(name);
-    }
-
 
 }

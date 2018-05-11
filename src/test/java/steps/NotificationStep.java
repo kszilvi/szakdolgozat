@@ -5,9 +5,11 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
 import javax.mail.*;
 import java.io.IOException;
+import java.util.Properties;
 
 public class NotificationStep extends BaseUtil {
 
@@ -24,7 +26,7 @@ public class NotificationStep extends BaseUtil {
     }
 
 
-    @And("^I add \"([^\"]*)\" number to notification$")
+    @When("^I add \"([^\"]*)\" number to notification$")
     public void iAddNumberToNotification(String num) throws Throwable {
         //base.wait.until(ExpectedConditions.elementToBeClickable(base.create.notificationNum));
         /*System.out.println("before "+ base.create.getNotificationNum());
@@ -35,7 +37,7 @@ public class NotificationStep extends BaseUtil {
         Thread.sleep(3000);*/
     }
 
-    @And("^I select \"([^\"]*)\" from unit notification dropdown$")
+    @When("^I select \"([^\"]*)\" from unit notification dropdown$")
     public void iSelectFromUnitNotificationDropdown(String unit) throws InterruptedException {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.create.unitOptions));
         base.create.selectNotificationUnit(unit);
@@ -44,10 +46,12 @@ public class NotificationStep extends BaseUtil {
 
     @Then("^email should be delivered with \"([^\"]*)\" and \"([^\"]*)\" before \"([^\"]*)\" \"([^\"]*)\" of even start$")
     public void emailShouldBeDeliveredWithAndBeforeOfEvenStart(String name, String emailAddress, String num, String unit) throws MessagingException, InterruptedException, IOException {
-        //System.out.println(base.helper.subject(name, emailAddress));
+        System.out.println(base.helper.subject(name, emailAddress));
         base.helper.isEmailMatch(base.prop, name, emailAddress);
 
     }
+
+
 
     @When("^I change the date for the event$")
     public void iChangeTheDateForTheEvent()  {

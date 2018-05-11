@@ -49,12 +49,32 @@ public class SearchResultPage {
                 .collect(Collectors.toList());
     }
 
-    public void clickOnTheNameOfTheEvent(String name) {
+    public void clickOnTheNameOfTheEvent(String name, String latestTimestamp) {
         List<WebElement> eventElementsInSR = eventContainer.findElements(By.className("taTyDe"));
 
         for (WebElement e : eventElementsInSR) {
-            if (e.getText().contains(name)) {
+            System.out.println("gettext " + e.getText());
+            System.out.println("name " + name);
+
+            if (e.getText().contains(name + " - " + latestTimestamp)) {
+                System.out.println("click");
                 e.click();
+                System.out.println("fdf");
+                break;
+            }
+        }
+    }
+    public void clickOnTheNameOfTheEvent2(String name, String latestTimestamp) {
+        List<WebElement> eventElementsInSR = eventContainer.findElements(By.className("taTyDe"));
+
+        for (WebElement e : eventElementsInSR) {
+            System.out.println("gettext " + e.getText());
+            System.out.println("name " + name);
+
+            if (e.getText().contains(name + " - " + latestTimestamp)) {
+                System.out.println("click");
+                e.click();
+                System.out.println("fdf");
                 break;
             }
         }

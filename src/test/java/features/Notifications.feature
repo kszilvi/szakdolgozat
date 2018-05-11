@@ -6,8 +6,12 @@ Feature: Sending notifications
     Given I am logged in
     Then I should see the Create Event button
 
-  @current
-  Scenario Outline:
+  Scenario Outline: Check notification for "<name>" event
+    When I click on Create button
+    Then the creating event page should be displayed
+
+    When I type "<name>" to title field
+    And I click on the Save button
     When I click on the Search icon
     And I type the created "<name>" event to the search field
     And I click on the search button
@@ -16,7 +20,6 @@ Feature: Sending notifications
 
     When I click on the name of the "<name>" event
     Then event preview should be displayed
-    And notification icon should not be displayed on preview page
 
     When I click on the Edit button on event preview page
     Then the creating event page should be displayed

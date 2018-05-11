@@ -26,7 +26,7 @@ public class CreateEventPage {
     private WebElement untilTime;
     @FindBy(css = "input[aria-label='Location']")
     public WebElement whereInputField;
-    @FindBy(id = "hInySc0")
+    @FindBy(css = "div[aria-label='Description']")
     public WebElement descriptionField;
     @FindBy(css = "div[aria-label='Notification method']")
     public WebElement notificationOption;
@@ -77,20 +77,18 @@ public class CreateEventPage {
         });
     }
 
-    private CreateEventPage typeDescription(String description) {
+    private void typeDescription(String description) {
         descriptionField.sendKeys(description);
-        return this;
-
     }
 
-    public CreateEventPage addLocation(String location) {
-        whereInputField.sendKeys(location);
-        return this;
+    public void addLocation(String location) throws InterruptedException {
+        if(!location.equals("")){
+            whereInputField.sendKeys(location);
+        }
     }
 
-    public CreateEventPage addNameToEvent(String name) {
+    public void addNameToEvent(String name) {
         nameOfTheEventTextBox.sendKeys(name);
-        return this;
     }
 
     public CreateEventPage checkAllDayCheckBox() {
@@ -98,9 +96,8 @@ public class CreateEventPage {
         return this;
     }
 
-    public CreateEventPage saveEvent() {
+    public void saveEvent() {
         saveButton.click();
-        return this;
     }
 
     public CreateEventPage addStartDate(String start) {
@@ -109,16 +106,14 @@ public class CreateEventPage {
         return this;
     }
 
-    public CreateEventPage addUntilDate(String endOfDate) {
+    public void addUntilDate(String endOfDate) {
         untilDate.clear();
         untilDate.sendKeys(endOfDate);
-        return this;
     }
 
-    public CreateEventPage addFromTime(String startTime) {
+    public void addFromTime(String startTime) {
         fromTime.clear();
         fromTime.sendKeys(startTime);
-        return this;
     }
 
     public CreateEventPage addUntilTime(String endTime) {
@@ -127,30 +122,26 @@ public class CreateEventPage {
         return this;
     }
 
-    public CreateEventPage addDescription(String description) {
+    public void addDescription(String description) {
         if (!description.equals("")) {
             descriptionField.clear();
             typeDescription(description);
         }
-        return this;
     }
 
-    public CreateEventPage selectNotificationType(String notificationType) throws InterruptedException {
+    public void selectNotificationType(String notificationType) throws InterruptedException {
         if (!getNotificationFieldValue().equals(notificationType)) {
             notificationOption.click();
             Thread.sleep(2000);
             clickOnNotificationType(notificationType);
         }
-        return this;
     }
 
-    public CreateEventPage selectNotificationUnit(String unit) throws InterruptedException {
-
+    public void selectNotificationUnit(String unit) throws InterruptedException {
         if (!getNotificationUnitFieldValue().equals(unit)) {
             unitOptions.click();
             Thread.sleep(2000);
             clickOnNotificationType(unit);
         }
-        return this;
     }
 }

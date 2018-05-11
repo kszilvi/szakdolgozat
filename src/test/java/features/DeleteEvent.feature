@@ -6,9 +6,13 @@ Feature: Delete events
     Given I am logged in
     Then I should see the Create Event button
 
+  Scenario Outline: Deleting events with "<name>"
+    When I click on Create button
+    Then the creating event page should be displayed
 
-  Scenario Outline: Deleting events
-    When I click on the Search icon
+    When I type "<name>" to title field
+    And I click on the Save button
+    And I click on the Search icon
     And I type the created "<name>" event to the search field
     And I click on the search button
     Then search result page should be displayed
@@ -21,6 +25,6 @@ Feature: Delete events
     Then "<name>" event should not appear on search result page
 
     Examples:
-      | name                        |
-      | Multiple day long event 136 |
+      | name                          |
+      | Multiple day long event 142__ |
 

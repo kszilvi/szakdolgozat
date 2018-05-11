@@ -21,4 +21,5 @@ public class BaseUtil {
     public InputStream input;
     public Actions actions;
     public Helper helper;
+    public String latestTimeStamp;
 }

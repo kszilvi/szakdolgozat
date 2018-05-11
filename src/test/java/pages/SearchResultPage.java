@@ -1,10 +1,13 @@
 package pages;
 
+import base.BaseUtil;
+import org.jsoup.Connection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 import java.time.LocalDate;
@@ -49,32 +52,13 @@ public class SearchResultPage {
                 .collect(Collectors.toList());
     }
 
-    public void clickOnTheNameOfTheEvent(String name, String latestTimestamp) {
+    public void clickOnTheNameOfTheEvent(String name, String latestTimestamp) throws InterruptedException {
         List<WebElement> eventElementsInSR = eventContainer.findElements(By.className("taTyDe"));
 
         for (WebElement e : eventElementsInSR) {
-            System.out.println("gettext " + e.getText());
-            System.out.println("name " + name);
-
             if (e.getText().contains(name + " - " + latestTimestamp)) {
-                System.out.println("click");
-                e.click();
-                System.out.println("fdf");
-                break;
-            }
-        }
-    }
-    public void clickOnTheNameOfTheEvent2(String name, String latestTimestamp) {
-        List<WebElement> eventElementsInSR = eventContainer.findElements(By.className("taTyDe"));
-
-        for (WebElement e : eventElementsInSR) {
-            System.out.println("gettext " + e.getText());
-            System.out.println("name " + name);
-
-            if (e.getText().contains(name + " - " + latestTimestamp)) {
-                System.out.println("click");
-                e.click();
-                System.out.println("fdf");
+                Thread.sleep(1000);
+                e.findElement(By.tagName("html-blob")).click();
                 break;
             }
         }

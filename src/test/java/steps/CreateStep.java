@@ -109,7 +109,7 @@ public class CreateStep extends BaseUtil {
     }
 
     @When("^I click on the name of the \"([^\"]*)\" event$")
-    public void iClickOnTheNameOfTheEvent(String eventName){
+    public void iClickOnTheNameOfTheEvent(String eventName) throws InterruptedException {
         base.searchResult.clickOnTheNameOfTheEvent(eventName, latestTimestamp);
     }
 

@@ -36,8 +36,10 @@ Feature: Edit events
     And "<description>" description should be displayed in the preview pane
 
     Examples:
-      | name             | location | description             |
-      | Multiple day 188 |          | disco disco party party |
+      | name             | location | description |
+      | Multiple day 188 |          | description |
+      | Multiple day 189 | Debrecen |             |
+      | Multiple day 181 | BP       | test        |
 
 
 

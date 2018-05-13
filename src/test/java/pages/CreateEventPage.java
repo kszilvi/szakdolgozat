@@ -81,7 +81,7 @@ public class CreateEventPage {
         descriptionField.sendKeys(description);
     }
 
-    public void addLocation(String location) throws InterruptedException {
+    public void addLocation(String location) {
         if(!location.equals("")){
             whereInputField.sendKeys(location);
         }

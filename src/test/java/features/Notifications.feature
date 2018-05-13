@@ -6,6 +6,7 @@ Feature: Sending notifications
     Given I am logged in
     Then I should see the Create Event button
 
+
   Scenario Outline: Check notification for "<name>" event
     When I click on Create button
     Then the creating event page should be displayed
@@ -26,10 +27,9 @@ Feature: Sending notifications
 
     When I change the date for the event
     And I select "<notificationType>" from notification dropdown
-    And I add "<number>" number to notification
     And I select "<unit>" from unit notification dropdown
     And I click on the Save button
-    Then email should be delivered with "<name>" and "<email-address>" before "<number>" "<unit>" of even start
+    Then email should be delivered with "<name>" and "<email-address>"
 
     Examples:
       | name         | notificationType | number | unit    | email-address                  |

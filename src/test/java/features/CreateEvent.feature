@@ -6,6 +6,7 @@ Feature: Create events
     Given I am logged in
     Then I should see the Create Event button
 
+
   Scenario Outline: Creating multiple events with "<name>" name
     When I click on Create button
     Then the creating event page should be displayed
@@ -30,7 +31,6 @@ Feature: Create events
     Examples:
       | name                          | from date   | from time | unit from | until date  | until time | unit until | message     |
       | Multiple day long event 142__ | 10 Jun 2018 | 1:30      | pm        | 13 Jun 2018 | 6:30       | pm         | Event saved |
-
 
   Scenario Outline: Trying to create incorrect events with "<name>"
     When I click on Create button

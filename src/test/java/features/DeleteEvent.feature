@@ -6,6 +6,7 @@ Feature: Delete events
     Given I am logged in
     Then I should see the Create Event button
 
+
   Scenario Outline: Deleting events with "<name>"
     When I click on Create button
     Then the creating event page should be displayed

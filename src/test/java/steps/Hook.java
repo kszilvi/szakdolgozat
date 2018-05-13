@@ -33,9 +33,9 @@ public class Hook extends BaseUtil {
 
         ChromeOptions options = new ChromeOptions();
         //this option for MACOS
-        //options.addArguments("user-data-dir=/Users/kovacsszilvia/Library/Application Support/Google/Chrome/szilvi");
+        options.addArguments("user-data-dir=/Users/kovacsszilvia/Library/Application Support/Google/Chrome/szilvi");
         //this option for Windows
-        options.addArguments("user-data-dir=C:\\Users\\Szilvia_Kovacs\\AppData\\Local\\Google\\Chrome\\User Data\\szilvi_test");
+        //options.addArguments("user-data-dir=C:\\Users\\Szilvia_Kovacs\\AppData\\Local\\Google\\Chrome\\User Data\\szilvi_test");
         base.driver = new ChromeDriver(options);
         base.driver.manage().window().maximize();
         base.login = new LoginPage(base.driver);
@@ -49,6 +49,7 @@ public class Hook extends BaseUtil {
         base.input = BaseUtil.class.getClassLoader().getResourceAsStream("smtp.properties");
         base.prop.load(base.input);
         base.helper = new Helper();
+        base.latestTimeStamp = null;
     }
 
     @After

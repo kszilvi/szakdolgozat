@@ -75,9 +75,9 @@ public class Helper {
         return isMatch;
     }
 
-    public void isEmailMatch(Properties prop, String name, String emailAddress) throws MessagingException, InterruptedException {
+    public void isEmailMatch(Properties prop, String name, String emailAddress, String latestTimestamp) throws MessagingException, InterruptedException {
         Assert.assertTrue(searchMessageFromTitleWAndSenderWithRetry(connect(prop).getFolder("inbox"),
-                subject(name, emailAddress), 5, senderAddress()));
+                subject(name, emailAddress, latestTimestamp), 5, senderAddress()));
     }
 
     private String getTimeZone() {
@@ -88,7 +88,7 @@ public class Helper {
         return "Google Calendar <calendar-notification@google.com>";
     }
 
-    public String subject(String eventName, String emailAddress) {
+    public String subject(String eventName, String emailAddress, String latestTimestamp) {
         return "Notification: " + eventName + " - " + latestTimestamp + " @ " + convertLocalDateTimeToStringWithYears(getTimeStampPlusXMinutes(10)) + " " +
                 convertLocalDateTimeToStringOnlyHours(getTimeStampPlusXMinutes(10)) +
                 " (" + getTimeZone() + ")" + " (" + emailAddress + ")";

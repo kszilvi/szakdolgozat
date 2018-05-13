@@ -5,7 +5,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-
 public class MainStep extends BaseUtil {
 
     private BaseUtil base;

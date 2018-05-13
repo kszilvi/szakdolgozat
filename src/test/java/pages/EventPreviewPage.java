@@ -41,23 +41,19 @@ public class EventPreviewPage {
         deleteButton.click();
     }
 
-    public EventPreviewPage editButtonIsDisplayedOnPreviewPage() {
+    public void editButtonIsDisplayedOnPreviewPage() {
         Assert.assertTrue(editButton.isDisplayed(), "Edit button isn't displayed");
-        return this;
     }
 
-    public EventPreviewPage locationIsDisplayedOnPreviewPage(String location) {
+    public void locationIsDisplayedOnPreviewPage(String location) {
         if (!location.equals("")) {
             Assert.assertEquals(getLocationFromPreview(), location, "location doesn't appear on preview page");
         }
-        return this;
     }
 
-    public EventPreviewPage descriptionIsDisplayedInPreviewPage(String description) {
+    public void descriptionIsDisplayedInPreviewPage(String description) {
         if (!description.equals("")) {
             Assert.assertEquals(getDescription(), "Description:" + "\n" + description, "description doesn't appear with correct description text on preview page");
         }
-        return this;
     }
-
 }

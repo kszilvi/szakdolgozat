@@ -1,7 +1,6 @@
 package steps;
 
 import base.BaseUtil;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,8 +15,6 @@ public class CreateStep extends BaseUtil {
     public CreateStep(BaseUtil base) {
         this.base = base;
     }
-
-    String latestTimestamp;
 
     @Then("^the creating event page should be displayed$")
     public void theCreatingNewEventPageShouldBeDisplayed() {
@@ -52,8 +49,8 @@ public class CreateStep extends BaseUtil {
 
     @When("^I type \"([^\"]*)\" to title field$")
     public void iTypeToTitleField(String title) {
-        latestTimestamp = base.helper.getCurrentTimestampForDate2();
-        base.create.addNameToEvent(title + " - " + latestTimestamp);
+        base.latestTimeStamp = base.helper.getCurrentTimestampForDate2();
+        base.create.addNameToEvent(title + " - " + base.latestTimeStamp);
     }
 
     @And("^I click on Edit button$")
@@ -87,7 +84,7 @@ public class CreateStep extends BaseUtil {
     @Then("^created \"([^\"]*)\" event should be displayed in the search result list from \"([^\"]*)\" to \"([^\"]*)\"$")
     public void createdEventShouldBeDisplayedInTheSearchResultListFromTo(String eventName, String fromDate, String untilDate) {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.searchResult.eventContainer));
-        Assert.assertEquals((base.searchResult.datesWithCreatedName2(eventName + " - " + latestTimestamp)), base.searchResult.getDatesBetween(base.helper.dateConverterFromStringToLocalDate(fromDate),
+        Assert.assertEquals((base.searchResult.datesWithCreatedName2(eventName + " - " + base.latestTimeStamp)), base.searchResult.getDatesBetween(base.helper.dateConverterFromStringToLocalDate(fromDate),
                 base.helper.dateConverterFromStringToLocalDate(untilDate)));
     }
 
@@ -97,25 +94,21 @@ public class CreateStep extends BaseUtil {
     }
 
     @When("^I type the created \"([^\"]*)\" event to the search field$")
-    public void iTypeTheCreatedEventToTheSearchField(String name) throws InterruptedException {
+    public void iTypeTheCreatedEventToTheSearchField(String name) {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.main.searchField));
-        base.main.typeToSearchField(name + " - " + latestTimestamp);
+        base.main.typeToSearchField(name + " - " + base.latestTimeStamp);
     }
 
     @Then("^searched \"([^\"]*)\" event should appear on search result page$")
     public void searchedEventShouldAppearOnSearchResultPage(String name) {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.searchResult.eventContainer));
-        base.searchResult.searchedEventIsDisplayedinSearchResultList(name + " - " + latestTimestamp);
+        base.searchResult.searchedEventIsDisplayedinSearchResultList(name + " - " + base.latestTimeStamp);
     }
 
     @When("^I click on the name of the \"([^\"]*)\" event$")
     public void iClickOnTheNameOfTheEvent(String eventName) throws InterruptedException {
-        base.searchResult.clickOnTheNameOfTheEvent(eventName, latestTimestamp);
+        base.searchResult.clickOnTheNameOfTheEvent(eventName, base.latestTimeStamp);
     }
 
-    @Then("^\"([^\"]*)\" event should not appear on search result page$")
-    public void eventShouldNotAppearOnSearchResultPage(String name) {
-        base.searchResult.eventIsDisplayedOnSearchResultList(name + " - " +latestTimestamp);
-    }
 
 }

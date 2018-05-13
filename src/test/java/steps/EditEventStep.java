@@ -29,7 +29,6 @@ public class EditEventStep extends BaseUtil{
     public void iAddLocationToTheSelectedEvent(String location) throws InterruptedException {
         base.wait.until(ExpectedConditions.elementToBeClickable(base.create.whereInputField));
         base.create.addLocation(location);
-        Thread.sleep(5000);
     }
 
     @And("^\"([^\"]*)\" location should be displayed in the preview pane$")
@@ -38,8 +37,7 @@ public class EditEventStep extends BaseUtil{
     }
 
     @And("^I type \"([^\"]*)\" description to the selected event$")
-    public void iTypeDescriptionToTheSelectedEvent(String description) throws InterruptedException {
-        //base.wait.until(ExpectedConditions.elementToBeClickable(base.create.descriptionField));
+    public void iTypeDescriptionToTheSelectedEvent(String description){
         base.create.addDescription(description);
     }
 

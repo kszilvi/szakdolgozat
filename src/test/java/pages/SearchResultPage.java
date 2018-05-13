@@ -1,13 +1,10 @@
 package pages;
 
-import base.BaseUtil;
-import org.jsoup.Connection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 import java.time.LocalDate;
@@ -17,8 +14,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SearchResultPage {
-    @FindBy(css = "div[aria-label='Go back']")
-    private WebElement goBackButton;
     @FindBy(className = "gb_Wc")
     public WebElement searchText;
     @FindBy(className = "taTyDe")
@@ -27,6 +22,8 @@ public class SearchResultPage {
     public WebElement eventName;
     @FindBy(className = "yHbHub")
     public WebElement eventContainer;
+    @FindBy(css = "div[aria-label='Go back']")
+    private WebElement goBackButton;
     @FindBy(className = "ytDhE")
     private WebElement noSearchResultText;
 
@@ -77,26 +74,21 @@ public class SearchResultPage {
                 );
     }
 
-
-    public SearchResultPage searchResulPageIsDisplayed() {
+    public void searchResulPageIsDisplayed() {
         Assert.assertTrue(goBackButton.isDisplayed(), "Go back button isn't visible");
-        return this;
     }
 
-    public SearchResultPage noResultsFoundIsDisplayed() {
+    public void noResultsFoundIsDisplayed() {
         Assert.assertTrue(noSearchResultText.isDisplayed(), "event appears on search result list");
-        return this;
     }
 
-    public SearchResultPage eventIsDisplayedOnSearchResultList(String name) {
+    public void eventIsDisplayedOnSearchResultList(String name) {
         Assert.assertTrue(noSearchResultText.isDisplayed(), name + " event appears on search result page");
-        return this;
     }
 
-    public SearchResultPage searchedEventIsDisplayedinSearchResultList(String name) {
+    public void searchedEventIsDisplayedinSearchResultList(String name) {
         Assert.assertTrue(getEventDateNameMapFromSearchResultPage().entrySet().stream()
                 .anyMatch(p -> p.getValue().equals(name)) || !noSearchResultText.isDisplayed(), "no search result with this term");
-        return this;
     }
 
 }
